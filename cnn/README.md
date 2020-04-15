@@ -71,3 +71,9 @@ or
 python test_imagenet.py --auxiliary --arch Cri2_ImageNet_Best --model_path Cri2_ImageNet_Best.pt
 ```
 * Expected result: 24.1% top1 test error with 5.4M model params.
+
+### Ablation
+In our ablation study on hyper-parameters, we find setting `--decision_freq` as `7` yield more stable results. Run:
+```
+python train_search.py --use_history --decision_freq 7
+```

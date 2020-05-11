@@ -23,7 +23,7 @@ python main_modelnet.py --phase train --arch Cri2_ModelNet_Best --num_cells 9 --
 Just need to set `--data` into your data folder, dataset ModelNet40 will be downloaded automatically.  
 Set `--arch` to any architecture you want. (One can find more architectures from `genotyps.py`) 
 
-If you suffer from 'Out of Memory (OOM)' issue, you can train a compact model by runing:
+If you suffer from `Out of Memory (OOM)` issue, you can train a compact model by runing:
 ```
 python main_modelnet.py --phase train --arch Cri2_ModelNet_Best --num_cells 3 --init_channels 128 --k 9 --save Cri2_modelnet40_best_l3_c128_k9
 ```

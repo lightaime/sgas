@@ -16,12 +16,17 @@ Just need to set `--data` into your desired data folder, ModelNet10 dataset will
 ### Train
 We train each model on one tesla V100. 
 
-For training the 4-th architecture searched using `SGAS Cri2` with 9 cells, 128 filters and k nearest neighbors 20 (the best large architecture), run:
+For training the best architecture searched using `SGAS Cri2` with 9 cells, 128 filters and k nearest neighbors 20 (the best large architecture), run:
 ```
-python main_modelnet.py --phase train --arch Cri2_ModelNet_Best --num_cells 9 --init_channels 128 --k 20 --save Cri2_arch4_l9_c128_k20
+python main_modelnet.py --phase train --arch Cri2_ModelNet_Best --num_cells 9 --init_channels 128 --k 20 --save Cri2_modelnet40_best_l9_c128_k20
 ```
 Just need to set `--data` into your data folder, dataset ModelNet40 will be downloaded automatically.  
 Set `--arch` to any architecture you want. (One can find more architectures from `genotyps.py`) 
+
+If you suffer from 'Out of Memory (OOM)' issue, you can train a compact model by runing:
+```
+python main_modelnet.py --phase train --arch Cri2_ModelNet_Best --num_cells 3 --init_channels 128 --k 9 --save Cri2_modelnet40_best_l3_c128_k9
+```
 
 
 ### Test

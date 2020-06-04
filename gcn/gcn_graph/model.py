@@ -1,7 +1,6 @@
 import __init__
 import torch
 from operations import *
-from gcn.utils import drop_path
 
 
 class Cell(nn.Module):
@@ -104,3 +103,13 @@ class NetworkPPI(nn.Module):
         out = self.global_pooling(s1.unsqueeze(0)).squeeze(0)
         logits = self.classifier(torch.cat((out, s1), dim=1))
         return logits, logits_aux
+
+
+def drop_path(x, drop_prob):
+    if drop_prob > 0.:
+        keep_prob = 1. - drop_prob
+        mask = torch.cuda.FloatTensor(x.size(0), 1).bernoulli_(keep_prob)
+        x.div_(keep_prob)
+        x.mul_(mask)
+    return x
+

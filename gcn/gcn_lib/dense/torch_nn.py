@@ -78,11 +78,11 @@ def batched_index_select(inputs, index):
     batch_size, num_dims, num_vertices, _ = inputs.shape
     k = index.shape[2]
     idx = torch.arange(0, batch_size) * num_vertices
-    idx = idx.view(batch_size, -1)
+    idx = idx.contiguous().view(batch_size, -1)
 
     inputs = inputs.transpose(2, 1).contiguous().view(-1, num_dims)
     index = index.contiguous().view(batch_size, -1) + idx.type(index.dtype).to(inputs.device)
-    index = index.view(-1)
+    index = index.contiguous().view(-1)
 
     return torch.index_select(inputs, 0, index).contiguous().view(batch_size, -1, num_dims).transpose(2, 1).contiguous().view(batch_size, num_dims, -1, k)
 

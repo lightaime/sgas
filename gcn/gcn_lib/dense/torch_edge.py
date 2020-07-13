@@ -30,8 +30,7 @@ def _knn_matrix(x, k=16, self_loop=True):
     else:
         _, nn_idx = torch.topk(-_pairwise_distance(x.detach()), k=k+1)
         nn_idx = nn_idx[:, :, 1:]
-    center_idx = torch.arange(0, n_points).repeat(batch_size, k, 1).transpose(2, 1)
-    center_idx = center_idx.to(x.device)
+    center_idx = torch.arange(0, n_points, device=x.device).repeat(batch_size, k, 1).transpose(2, 1)
     return torch.stack((nn_idx, center_idx), dim=0)
 
 

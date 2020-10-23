@@ -13,7 +13,7 @@ OPS = {
     'semi_gcn': lambda C, stride, affine: GraphConv2d(C, C, 'gcn', 'relu', 'batch', bias=False),
     'gin': lambda C, stride, affine: GraphConv2d(C, C, 'gin', 'relu', 'batch', bias=False),
     'sage': lambda C, stride, affine: GraphConv2d(C, C, 'sage', 'relu', 'batch', bias=False),
-    'res_sage': lambda C, stride, affine: GraphConv2d(C, C, 'rsage', 'relu', 'batch', bias=False)
+    'rel_sage': lambda C, stride, affine: GraphConv2d(C, C, 'rsage', 'relu', 'batch', bias=False)
 }
 
 

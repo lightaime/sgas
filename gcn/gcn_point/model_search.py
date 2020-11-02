@@ -56,11 +56,12 @@ class Cell(nn.Module):
             for j, h in enumerate(states):
                 if selected_idxs[offset + j] == -1: # undecided mix edges
                     o = self._ops[offset + j](h, edge_index, weights[offset + j])   # call the gcn module,
+                    o_list.append(o)
                 elif selected_idxs[offset + j] == PRIMITIVES.index('none'): # pruned edges
-                    pass
+                    continue
                 else: # decided discrete edges
                     o = self._ops[offset + j](h, edge_index, None, selected_idxs[offset + j])
-                o_list.append(o)
+                    o_list.append(o)
             s = sum(o_list)
             offset += len(states)
             states.append(s)
@@ -107,7 +108,7 @@ class Network(nn.Module):
         self._initialize_alphas()
 
         self.normal_selected_idxs = torch.tensor(len(self.alphas_normal) * [-1], requires_grad=False, dtype=torch.int)
-        self.normal_candidate_flags = torch.tensor(len(self.alphas_normal) * [True], 
+        self.normal_candidate_flags = torch.tensor(len(self.alphas_normal) * [True],
                                                    requires_grad=False, dtype=torch.bool)
 
     def new(self):

@@ -58,11 +58,12 @@ class Cell(nn.Module):
             for j, h in enumerate(states):
                 if selected_idxs[offset + j] == -1: # undecided mix edges
                     o = self._ops[offset + j](h, weights[offset + j])
+                    o_list.append(o)
                 elif selected_idxs[offset + j] == PRIMITIVES.index('none'): # pruned edges
-                    pass
+                    continue
                 else: # decided discrete edges
                     o = self._ops[offset + j](h, None, selected_idxs[offset + j])
-                o_list.append(o)
+                    o_list.append(o)
             s = sum(o_list)
             offset += len(states)
             states.append(s)
